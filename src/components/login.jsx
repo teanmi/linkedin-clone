@@ -120,7 +120,7 @@ const Hero = styled.div`
       font-size: 28px;
       width: 100%;
       line-height: 2;
-      margin-bottom: 24px;
+      margin-bottom: 6px;
     }
   }
 

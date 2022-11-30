@@ -39,3 +39,7 @@ ul {
 body {
   font-family: Arial, sans-serif;
 }
+
+button:hover, a:hover {
+  cursor: pointer;
+}
