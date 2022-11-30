@@ -204,6 +204,15 @@ const NavList = styled.li`
       align-items: center;
     }
   }
+  @media (max-width: 875px) and (min-width: 768px) {
+    a {
+      min-width: 65px;
+      span {
+        display: none
+      }
+    }
+    
+  }
 
   @media (max-width: 768px) {
     min-width: 70px;
@@ -231,7 +240,7 @@ const SignOut = styled.div`
   transition-duration: 150ms;
   text-align: center;
   display: none;
-  box-shadow: 0px 6px 8px 4px rgba(0,0,0,0.3);
+  box-shadow: 0px 6px 8px 4px rgba(0, 0, 0, 0.3);
 `;
 
 const User = styled(NavList)`
