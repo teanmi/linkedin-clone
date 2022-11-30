@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import styled from "styled-components";
 
@@ -20,12 +21,60 @@ const Header = () => {
         </Search>
         <Nav>
           <NavListWrap>
-            <NavList>
+            <NavList className="active">
               <a href="/home">
                 <img src="../images/nav-home.svg" alt="" />
                 <span>Home</span>
               </a>
             </NavList>
+            <NavList>
+              <a href="/home">
+                <img src="../images/nav-network.svg" alt="" />
+                <span>My Network</span>
+              </a>
+            </NavList>
+            <NavList>
+              <a href="/home">
+                <img src="../images/nav-jobs.svg" alt="" />
+                <span>Jobs</span>
+              </a>
+            </NavList>
+            <NavList>
+              <a href="/home">
+                <img src="../images/nav-messaging.svg" alt="" />
+                <span>Messaging</span>
+              </a>
+            </NavList>
+            <NavList>
+              <a href="/home">
+                <img src="../images/nav-notifications.svg" alt="" />
+                <span>Notifications</span>
+              </a>
+            </NavList>
+
+            <User>
+              <a href="/home">
+                <img src="../images/user.svg" alt="" />
+                <span>
+                  Me
+                  <img src="../images/down-icon.svg" alt="" />
+                </span>
+              </a>
+
+              <SignOut>
+                <a>Sign out</a>
+              </SignOut>
+            </User>
+
+            <Work>
+              <a href="/home">
+                <img src="../images/nav-work.svg" alt="" />
+                <span>
+                  Work
+                  <img src="../images/down-icon.svg" alt="" />
+                </span>
+              </a>
+            </Work>
           </NavListWrap>
         </Nav>
       </Content>
@@ -42,6 +91,9 @@ const Container = styled.div`
   z-index: 100;
   padding: 0 24px;
   width: 100vw;
+  @media (max-width: 768px) {
+    padding: 8px 24px;
+  }
 `;
 
 const Content = styled.div`
@@ -112,6 +164,22 @@ const NavListWrap = styled.ul`
   display: flex;
   flex-wrap: nowrap;
   list-style-type: none;
+  @media (max-width: 1200px) and (min-width: 768px) {
+    margin-right: 36px;
+  }
+
+  .active {
+    span:after {
+      content: "";
+      transform: scaleX(1);
+      border-bottom: 2px solid rgba(0, 0, 0, 0.9);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transition: transform 200ms ease-in-out;
+      width: 100%;
+    }
+  }
 `;
 
 const NavList = styled.li`
@@ -135,10 +203,8 @@ const NavList = styled.li`
       display: flex;
       align-items: center;
     }
-    /* @media (max-width: 1200px) and (min-width: 768px) {
-      margin-right: 24px;
-    } */
   }
+
   @media (max-width: 768px) {
     min-width: 70px;
   }
@@ -152,6 +218,47 @@ const NavList = styled.li`
       }
     }
   }
+`;
+
+const SignOut = styled.div`
+  position: absolute;
+  top: 45px;
+  background-color: white;
+  border-radius: 0 0 5px 5px;
+  width: 100px;
+  height: 40px;
+  font-size: 16px;
+  transition-duration: 150ms;
+  text-align: center;
+  display: none;
+  box-shadow: 0px 6px 8px 4px rgba(0,0,0,0.3);
+`;
+
+const User = styled(NavList)`
+  a > img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+  span {
+    display: flex;
+    align-items: center;
+    img {
+      width: 13px;
+    }
+  }
+
+  &:hover {
+    ${SignOut} {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+`;
+
+const Work = styled(User)`
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
 `;
 
 export default Header;
