@@ -181,6 +181,40 @@ const CommunityCard = styled(ArtCard)`
     color: black;
     padding: 4px 12px;
     font-size: 12px;
+
+    &:hover {
+      color: #0a66c2;
+    }
+
+    span {
+      margin: 4px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      img {
+        padding: 7px;
+        position: absolute;
+        right: 0;
+        &:hover {
+        background-color: rgba(0, 0, 0, 0.08);
+        border-radius: 50%;
+      }
+      }
+      
+    }
+
+    &:last-child {
+      color: rgba(0, 0, 0, 0.6);
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+      border-top: 1px solid #d6cec2;
+      padding: 12px;
+      font-weight: 700;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.08);
+      }
+    }
   }
 `;
 
