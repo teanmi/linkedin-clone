@@ -195,9 +195,11 @@ const CommunityCard = styled(ArtCard)`
         padding: 7px;
         position: absolute;
         right: 0;
+        border-radius: 50%;
+        background-color: #fff;
+        transition: all 250ms ease-in;
         &:hover {
         background-color: rgba(0, 0, 0, 0.08);
-        border-radius: 50%;
       }
       }
       
