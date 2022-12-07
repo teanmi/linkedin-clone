@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { signInAPI } from "../actions/actions";
+import { useNavigate } from "react-router";
 
 const Login = (props) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.user) {
+      navigate("/home")
+    }
+  }, [props.user, navigate]);
+
+
   return (
     <Container>
       <Nav>
@@ -171,7 +181,9 @@ const Google = styled.button`
 `;
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    user: state.userState.user,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => ({
