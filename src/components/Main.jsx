@@ -1,13 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 
-const Main = () => {
+const Main = (props) => {
   return (
     <Container>
       <ShareBox>
         <div>
-          <img src="../images/user.svg" alt="" />
+          {props.user && props.user.photoURL ? (
+            <img src={props.user.photoURL} alt="" />
+          ) : (
+            <img src="../images/user.svg" alt="" />
+          )}
+
           <button>Start a post</button>
         </div>
         <div>
@@ -33,7 +39,11 @@ const Main = () => {
         <Article>
           <SharedActor>
             <a>
-              <img src="../images/user.svg" alt="" />
+              {props.user && props.user.photoURL ? (
+                <img src={props.user.photoURL} alt="" />
+              ) : (
+                <img src="../images/user.svg" alt="" />
+              )}
               <div>
                 <span>Title</span>
                 <span>Info</span>
@@ -238,7 +248,6 @@ const SharedImg = styled.div`
 `;
 
 const SocialCounts = styled.ul`
-
   line-height: 1.3;
   display: flex;
   justify-content: space-between;
@@ -251,12 +260,12 @@ const SocialCounts = styled.ul`
   li {
     margin-right: 5px;
     font-size: 12px;
-    color: rgba(0,0,0,0.6);
+    color: rgba(0, 0, 0, 0.6);
     button {
       display: flex;
-      border:none;
+      border: none;
       background-color: inherit;
-      color: rgba(0,0,0,0.6);
+      color: rgba(0, 0, 0, 0.6);
       span {
         margin-left: 4px;
       }
@@ -275,7 +284,7 @@ const SocialActions = styled.div`
     display: inline-flex;
     align-items: center;
     padding: 8px;
-    color: rgba(0,0,0,0.6);
+    color: rgba(0, 0, 0, 0.6);
 
     span {
       margin-left: 8px;
@@ -288,4 +297,12 @@ const SocialActions = styled.div`
   }
 `;
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    user: state.userState.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

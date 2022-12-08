@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 import Leftside from "./LeftSide";
 import Main from "./Main";
@@ -32,7 +33,7 @@ const Container = styled.div`
   margin: 0 auto;
   @media (max-width: 768px) {
     padding: 0;
-    padding-top: 52px
+    padding-top: 52px;
   }
 `;
 
@@ -64,7 +65,6 @@ const Section = styled.section`
     flex-direction: column;
     padding: 0 5px;
   }
-
 `;
 
 const Layout = styled.div`
@@ -82,4 +82,6 @@ const Layout = styled.div`
   }
 `;
 
-export default Home;
+
+
+export default (Home);
