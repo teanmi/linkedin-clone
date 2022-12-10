@@ -1,4 +1,5 @@
 import db, { auth, provider, storage } from "../firebase";
+import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { signInWithPopup } from "firebase/auth";
 import { SET_USER } from "./actionType";
@@ -60,7 +61,7 @@ export function postArticleAPI(payload) {
         (error) => console.log(error.code),
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            db.collection("articles").add({
+            addDoc(collection(db, "articles"), {
               actor: {
                 description: payload.user.email,
                 title: payload.user.displayName,

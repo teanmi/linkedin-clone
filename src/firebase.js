@@ -10,14 +10,14 @@ const firebaseConfig = {
   projectId: "linkedin-clone-d8538",
   storageBucket: "linkedin-clone-d8538.appspot.com",
   messagingSenderId: "444425821896",
-  appId: "1:444425821896:web:671af084bd9d70f51c4ffd",
+  appId: "1:444425821896:web:b9628c2cf58c1ea61c4ffd"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-const storage = getStorage();
+const storage = getStorage(app);
 
 export { auth, provider, storage };
 export default db;
