@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./components/login";
-import Home from "./components/home";
-import Header from "./components/header";
+import Login from "./components/Login";
+import Home from "./components/Home";
+import Header from "./components/Header";
 import { useEffect } from "react";
 import { getUserAuth } from "./actions/actions"
 import { connect } from "react-redux";

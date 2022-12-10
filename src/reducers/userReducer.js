@@ -1,5 +1,5 @@
 import {
-  SET_USER
+  SET_USER,
 } from "../actions/actionType"
 
 const INITIAL_STATE = {
@@ -13,6 +13,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         user: action.user,
       }
+
     default:
       return state;
   }

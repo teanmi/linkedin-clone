@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 
-const Leftside = () => {
+const Leftside = (props) => {
   return (
     <Container>
       <ArtCard>
@@ -10,7 +11,9 @@ const Leftside = () => {
           <CardBackground />
           <a>
             <Photo />
-            <Link>Welcome, there!</Link>
+            <Link>
+              Welcome, {props.user ? props.user.displayName : "there"}!
+            </Link>
           </a>
           <a>
             <AddPhotoText>Add a photo</AddPhotoText>
@@ -199,10 +202,9 @@ const CommunityCard = styled(ArtCard)`
         background-color: #fff;
         transition: all 250ms ease-in;
         &:hover {
-        background-color: rgba(0, 0, 0, 0.08);
+          background-color: rgba(0, 0, 0, 0.08);
+        }
       }
-      }
-      
     }
 
     &:last-child {
@@ -220,4 +222,8 @@ const CommunityCard = styled(ArtCard)`
   }
 `;
 
-export default Leftside;
+const mapStateToProps = (state) => {
+  return { user: state.userState.user };
+};
+
+export default connect(mapStateToProps)(Leftside);

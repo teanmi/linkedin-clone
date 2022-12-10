@@ -1,12 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import Leftside from "./LeftSide";
 import Main from "./Main";
 import Rightside from "./RightSide";
+import { useNavigate } from "react-router";
 
-const Home = () => {
+
+const Home = (props) => {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!props.user) {
+      navigate("/")
+    }
+  }, [props, navigate]);
+
   return (
     <Container>
       <Section>
@@ -82,6 +92,10 @@ const Layout = styled.div`
   }
 `;
 
+const mapStateToProps = (state) => {
+  return {
+    user: state.userState.user,
+  }
+}
 
-
-export default (Home);
+export default connect(mapStateToProps)(Home);

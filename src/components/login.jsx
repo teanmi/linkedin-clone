@@ -9,10 +9,9 @@ const Login = (props) => {
 
   useEffect(() => {
     if (props.user) {
-      navigate("/home")
+      navigate("/home");
     }
   }, [props.user, navigate]);
-
 
   return (
     <Container>
@@ -22,7 +21,7 @@ const Login = (props) => {
         </a>
         <div className="">
           <Join>Join now</Join>
-          <SignIn>Sign in</SignIn>
+          <SignIn onClick={() => props.signIn()}>Sign in</SignIn>
         </div>
       </Nav>
       <Section>
