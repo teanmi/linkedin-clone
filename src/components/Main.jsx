@@ -1,10 +1,31 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import PostModal from "./PostModal.jsx"
+import PostModal from "./PostModal.jsx";
 
 const Main = (props) => {
+  const [showModal, setShowModal] = useState("close");
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (e.target !== e.currentTarget) {
+      return;
+    }
+
+    switch (showModal) {
+      case "open":
+        setShowModal("close");
+        break;
+      case "close":
+        setShowModal("open");
+        break;
+      default:
+        setShowModal("close");
+        break;
+    }
+  };
+
   return (
     <Container>
       <ShareBox>
@@ -15,7 +36,7 @@ const Main = (props) => {
             <img src="../images/user.svg" alt="" />
           )}
 
-          <button>Start a post</button>
+          <button onClick={(e) => handleClick(e)}>Start a post</button>
         </div>
         <div>
           <button>
@@ -103,6 +124,7 @@ const Main = (props) => {
           </SocialActions>
         </Article>
       </div>
+      <PostModal  showModal={showModal} handleClick={handleClick}/>
     </Container>
   );
 };
