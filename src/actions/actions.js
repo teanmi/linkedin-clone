@@ -1,12 +1,17 @@
 import db, { auth, provider, storage } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, orderBy, doc, onSnapshot, query } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { signInWithPopup } from "firebase/auth";
-import { SET_USER } from "./actionType";
+import { SET_USER, SET_LOADING_STATUS } from "./actionType";
 
 export const setUser = (payload) => ({
   type: SET_USER,
   user: payload,
+});
+
+export const setLoading = (status) => ({
+  type: SET_LOADING_STATUS,
+  status: status,
 });
 
 export function signInAPI() {
@@ -44,8 +49,10 @@ export function signOutAPI() {
 
 export function postArticleAPI(payload) {
   return (dispatch) => {
+    dispatch(setLoading(true));
     if (payload.image !== "") {
-      const storageRef = ref(storage, `images/${payload.image.name}`);
+      const storageRef = ref(storage, `images/${payload?.image?.name}`);
+      console.log(payload)
       const uploadTask = uploadBytesResumable(storageRef, payload.image);
 
       uploadTask.on(
@@ -74,8 +81,51 @@ export function postArticleAPI(payload) {
               description: payload.description,
             });
           });
+          dispatch(setLoading(false));
         }
       );
+    } else if (payload.video) {
+      addDoc(collection(db, "articles"), {
+        actor: {
+          description: payload.user.email,
+          title: payload.user.displayName,
+          date: payload.timestamp,
+          image: payload.user.photoURL,
+        },
+        video: payload.video,
+        sharedImg: "",
+        comments: 0,
+        description: payload.description,
+      });
+      dispatch(setLoading(false));
+    } else if (payload) {
+      addDoc(collection(db, "articles"), {
+        actor: {
+          description: payload.user.email,
+          title: payload.user.displayName,
+          date: payload.timestamp,
+          image: payload.user.photoURL,
+        },
+        video: "",
+        sharedImg: "",
+        comments: 0,
+        description: payload.description,
+      });
+      dispatch(setLoading(false));
     }
   };
+}
+
+
+export function getArticlesAPI() {
+  return (dispatch) => {
+    let payload;
+
+    const q = query(collection(db, "articles"), orderBy("actor.date", "desc"));
+    onSnapshot(q, (snapshot) => {
+      payload = snapshot.docs.map((doc) => doc.data());
+      console.log(payload);
+    })
+    
+  }
 }

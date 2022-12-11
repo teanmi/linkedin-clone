@@ -1,11 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import PostModal from "./PostModal.jsx";
+import { getArticlesAPI } from "../actions/actions.js";
 
 const Main = (props) => {
   const [showModal, setShowModal] = useState("close");
+
+  useEffect(() => {
+    props.getArticles();
+  }, []);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -29,6 +34,7 @@ const Main = (props) => {
   return (
     <Container>
       <ShareBox>
+        {}
         <div>
           {props.user && props.user.photoURL ? (
             <img src={props.user.photoURL} alt="" />
@@ -36,7 +42,12 @@ const Main = (props) => {
             <img src="../images/user.svg" alt="" />
           )}
 
-          <button onClick={(e) => handleClick(e)}>Start a post</button>
+          <button
+            onClick={(e) => handleClick(e)}
+            disabled={props.loading ? true : false}
+          >
+            Start a post
+          </button>
         </div>
         <div>
           <button>
@@ -57,7 +68,9 @@ const Main = (props) => {
           </button>
         </div>
       </ShareBox>
-      <div>
+      <Content>
+        {props.loading && <img src="../images/loading.png" alt="" />}
+
         <Article>
           <SharedActor>
             <a>
@@ -123,8 +136,8 @@ const Main = (props) => {
             </button>
           </SocialActions>
         </Article>
-      </div>
-      <PostModal  showModal={showModal} handleClick={handleClick}/>
+      </Content>
+      <PostModal showModal={showModal} handleClick={handleClick} />
     </Container>
   );
 };
@@ -320,12 +333,31 @@ const SocialActions = styled.div`
   }
 `;
 
+const Content = styled.div`
+  text-align: center;
+  & > img {
+    width: 30px;
+    animation: spinner 1s linear infinite;
+  }
+  @keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
 const mapStateToProps = (state) => {
   return {
     user: state.userState.user,
+    loading: state.articleState.loading,
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  getArticles: () => dispatch(getArticlesAPI()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
