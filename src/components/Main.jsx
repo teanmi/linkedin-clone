@@ -312,15 +312,18 @@ const SocialCounts = styled.ul`
 const SocialActions = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   min-height: 40px;
   margin: 0;
   padding: 4px 8px;
   button {
     display: inline-flex;
     align-items: center;
+    font-weight: 600;
     padding: 8px;
     color: rgba(0, 0, 0, 0.6);
+    border: none;
+    background-color: transparent;
 
     span {
       margin-left: 8px;
