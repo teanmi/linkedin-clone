@@ -1,9 +1,8 @@
-import {
-  SET_LOADING_STATUS
-} from "../actions/actionType"
+import { SET_LOADING_STATUS, GET_ARTICLES } from "../actions/actionType";
 
 export const initState = {
   loading: false,
+  articles: [],
 };
 
 const articleReducer = (state = initState, action) => {
@@ -12,7 +11,12 @@ const articleReducer = (state = initState, action) => {
       return {
         ...state,
         loading: action.status,
-      }
+      };
+    case GET_ARTICLES:
+      return {
+        ...state,
+        articles: action.payload,
+      };
     default:
       return state;
   }

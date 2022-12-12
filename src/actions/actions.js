@@ -1,8 +1,14 @@
 import db, { auth, provider, storage } from "../firebase";
-import { collection, addDoc, orderBy, doc, onSnapshot, query } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  orderBy,
+  onSnapshot,
+  query,
+} from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { signInWithPopup } from "firebase/auth";
-import { SET_USER, SET_LOADING_STATUS } from "./actionType";
+import { SET_USER, SET_LOADING_STATUS, GET_ARTICLES } from "./actionType";
 
 export const setUser = (payload) => ({
   type: SET_USER,
@@ -12,6 +18,11 @@ export const setUser = (payload) => ({
 export const setLoading = (status) => ({
   type: SET_LOADING_STATUS,
   status: status,
+});
+
+export const getArticles = (payload) => ({
+  type: GET_ARTICLES,
+  payload: payload,
 });
 
 export function signInAPI() {
@@ -52,7 +63,7 @@ export function postArticleAPI(payload) {
     dispatch(setLoading(true));
     if (payload.image !== "") {
       const storageRef = ref(storage, `images/${payload?.image?.name}`);
-      console.log(payload)
+      console.log(payload);
       const uploadTask = uploadBytesResumable(storageRef, payload.image);
 
       uploadTask.on(
@@ -77,7 +88,8 @@ export function postArticleAPI(payload) {
               },
               video: payload.video,
               sharedImg: downloadURL,
-              comments: 0,
+              comments: Math.floor(Math.random() * 100) + 1,
+              likes: Math.floor(Math.random() * 1000) + 1,
               description: payload.description,
             });
           });
@@ -94,7 +106,8 @@ export function postArticleAPI(payload) {
         },
         video: payload.video,
         sharedImg: "",
-        comments: 0,
+        comments: Math.floor(Math.random() * 100) + 1,
+        likes: Math.floor(Math.random() * 1000) + 1,
         description: payload.description,
       });
       dispatch(setLoading(false));
@@ -108,14 +121,14 @@ export function postArticleAPI(payload) {
         },
         video: "",
         sharedImg: "",
-        comments: 0,
+        comments: Math.floor(Math.random() * 100) + 1,
+        likes: Math.floor(Math.random() * 1000) + 1,
         description: payload.description,
       });
       dispatch(setLoading(false));
     }
   };
 }
-
 
 export function getArticlesAPI() {
   return (dispatch) => {
@@ -124,8 +137,8 @@ export function getArticlesAPI() {
     const q = query(collection(db, "articles"), orderBy("actor.date", "desc"));
     onSnapshot(q, (snapshot) => {
       payload = snapshot.docs.map((doc) => doc.data());
-      console.log(payload);
-    })
-    
-  }
+      
+      dispatch(getArticles(payload));
+    });
+  };
 }
