@@ -11,7 +11,7 @@ const Main = (props) => {
 
   useEffect(() => {
     props.getArticles();
-  }, []);
+  }, [props]);
 
   const handleClick = (e) => {
     e.preventDefault();
