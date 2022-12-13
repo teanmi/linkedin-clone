@@ -4,7 +4,7 @@ import Home from "./components/Home.jsx";
 import Header from "./components/Header.jsx";
 import { useEffect } from "react";
 import { getUserAuth } from "./actions/actions.js"
-import { connect } from "react-redux.js";
+import { connect } from "react-redux";
 
 function App(props) {
   useEffect(() => {
