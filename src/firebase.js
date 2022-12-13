@@ -2,10 +2,10 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getStorage } from "firebase/storage";
-import API_KEY from "../.env";
+
 
 const firebaseConfig = {
-  apiKey: API_KEY,
+  apiKey: process.env.REACT_APP_API_KEY,
   authDomain: "linkedin-clone-d8538.firebaseapp.com",
   projectId: "linkedin-clone-d8538",
   storageBucket: "linkedin-clone-d8538.appspot.com",
