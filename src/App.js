@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./components/Login";
-import Home from "./components/Home";
-import Header from "./components/Header";
+import Login from "./components/Login.jsx";
+import Home from "./components/Home.jsx";
+import Header from "./components/Header.jsx";
 import { useEffect } from "react";
-import { getUserAuth } from "./actions/actions"
-import { connect } from "react-redux";
+import { getUserAuth } from "./actions/actions.js"
+import { connect } from "react-redux.js";
 
 function App(props) {
   useEffect(() => {
