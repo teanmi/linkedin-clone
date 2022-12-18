@@ -1,5 +1,4 @@
-import API_KEY from "./keys/keys";
-
+const API_KEY = process.env.REACT_APP_API_KEY;
 export const firebaseConfig = {
   apiKey: API_KEY,
   authDomain: "linkedin-clone-d8538.firebaseapp.com",
