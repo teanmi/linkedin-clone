@@ -69,7 +69,7 @@ const Main = (props) => {
           </div>
         </ShareBox>
         {props.articles.length === 0 ? (
-          <p style={{ textAlign: "center" }}>There are no articles</p>
+          <NoArticles>There are no articles</NoArticles>
         ) : (
           <Content>
             {props.loading && <img src="../images/loading.png" alt="" />}
@@ -352,6 +352,13 @@ const SocialActions = styled.div`
     }
   }
 `;
+
+const NoArticles = styled(CommonCard)`
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 16px;
+  padding: 16px 0;
+`
 
 const Content = styled.div`
   text-align: center;
