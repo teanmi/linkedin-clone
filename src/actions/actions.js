@@ -35,6 +35,15 @@ export function signInAPI() {
   };
 }
 
+export function signInGuestAPI() {
+  return (dispatch) => {
+    dispatch(setUser({
+      displayName: "Guest",
+      email: "guest123@mail.com"
+    }));
+  };
+}
+
 export function getUserAuth() {
   return (dispatch) => {
     auth.onAuthStateChanged(async (user) => {

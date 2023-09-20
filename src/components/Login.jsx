@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { signInAPI } from "../actions/actions";
+import { signInAPI, signInGuestAPI } from "../actions/actions";
 import { useNavigate } from "react-router";
 
 const Login = (props) => {
@@ -34,6 +34,9 @@ const Login = (props) => {
             <img src="../images/google.svg" alt="" />
             Sign in with Google
           </Google>
+          <Guest onClick={() => props.signInGuest()}>
+            Sign in as Guest
+          </Guest>
         </Form>
       </Section>
     </Container>
@@ -156,6 +159,7 @@ const Form = styled.div`
   @media (max-width: 768px) {
     margin-top: 20px;
   }
+  text-align: center;
 `;
 
 const Google = styled.button`
@@ -179,6 +183,17 @@ const Google = styled.button`
   }
 `;
 
+const Guest = styled.button`
+  margin-top: 16px;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
 const mapStateToProps = (state) => {
   return {
     user: state.userState.user,
@@ -187,6 +202,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   signIn: () => dispatch(signInAPI()),
+  signInGuest: () => dispatch(signInGuestAPI()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
